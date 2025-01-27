@@ -1,0 +1,91 @@
+DSL- Domain Specific Language
+YAML-Yaml is not A Markup Language
+YAML files are usually written in with indentation of 2 spaces, then for list, it is - list_item 
+it has 3 kinds of elments: scalars, dict and list
+
+a scalar is a key value pair, the value of which can be a  str, number eg 
+scalar: this is a scalar
+num_scalar:67
+
+
+dict eg
+dictionary:
+    key_1:value_1
+    key_2:value_2
+
+
+list eg 
+list_of_values:
+    - value_1
+    - value_2
+Key Terms in Taurus YAML
+Below are some of the most commonly used sections and terms in a Taurus YAML configuration file:
+
+1. Execution
+Defines how the test will be executed. It specifies the tool or engine to use (e.g., JMeter, Locust, Gatling).
+list_of_dictionaries:
+    - key_1:value_1
+    - key_1:value_1
+    key_1:value_1
+    key_1:value_1
+
+taurus config
+execution:
+  - executor: jmeter   # Defines the engine/tool to use (JMeter in this case)
+    concurrency: 10    # Number of concurrent virtual users
+    ramp-up: 1m        # Time to reach the concurrency level (e.g., 1 minute)
+    hold-for: 5m       # Duration to maintain the concurrency level
+    iterations: 100    # Number of iterations to execute (optional)
+    scenario: my_scenario  # Links to a scenario defined in the `scenarios` section
+ 
+Scenarios
+Defines the behavior of the virtual users. A scenario can include requests, think times, loops, and other configurations.
+scenarios:
+  my_scenario:          # Name of the scenario
+    requests:           # List of requests
+      - url: https://example.com/api  # The target URL
+        method: GET                  # HTTP method (default is GET)
+        headers:                     # Optional HTTP headers
+          Content-Type: application/json
+        body: '{"key": "value"}'     # Request body (for POST/PUT requests)
+      - url: https://example.com/login
+        method: POST
+        body: '{"username": "user", "password": "pass"}'
+    think-time: 2s       # Pause between requests (optional)
+
+
+Modules
+Defines configurations for specific tools (e.g., JMeter, Selenium, etc.). This allows customization of tool-specific settings.
+
+modules:
+  jmeter:
+    path: /path/to/jmeter  # Path to the JMeter executable
+  selenium:
+    browser: chrome       # Browser type (e.g., chrome, firefox)
+Reporting
+Defines reporting options, such as output formats and services for test results.
+reporting:
+  - module: final-stats     # Prints final test statistics
+  - module: console         # Outputs test status to the console
+  - module: junit-xml       # Exports results in JUnit XML format
+  - module: cloud           # Sends results to a cloud service
+
+Provisioning
+Specifies the environment for running the tests (e.g., local or in the cloud).
+
+provisioning: local  # Options include 'local', 'cloud', or specific services
+
+Settings
+Global settings for the test execution, including log levels, default timeouts, etc.
+
+settings:
+  default-executor: jmeter  # Default tool to use if no executor is specified
+  log-level: info           # Logging verbosity (e.g., debug, info, warning)
+  artifacts-dir: /path/to/artifacts  # Directory for output files
+
+
+Data Sources
+Allows external data to be used in tests, such as CSV files for parameterized testing.
+
+data-sources:
+  - my_data.csv    # External CSV file for parameterized data

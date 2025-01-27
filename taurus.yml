@@ -1,0 +1,26 @@
+execution:
+  - executor: jmeter
+    concurrency: 20
+    ramp-up: 1m
+    hold-for: 5m
+    scenario: my_scenario
+
+scenarios:
+  my_scenario:
+    requests:
+      - url: https://example.com/api
+        method: GET
+      - url: https://example.com/login
+        method: POST
+        headers:
+          Content-Type: application/json
+        body: '{"username": "test", "password": "1234"}'
+    think-time: 2s
+
+reporting:
+  - module: final-stats
+  - module: console
+
+settings:
+  log-level: debug
+  default-executor: jmeter

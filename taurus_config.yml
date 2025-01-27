@@ -1,0 +1,12 @@
+execution:
+- executor: jmeter
+  concurrency: 10
+  hold-for: 5m
+  ramp-up: 2m30s
+  scenario: yaml_example
+  
+scenarios:
+  yaml_example:
+    retrieve-resources: false
+    requests:
+      - https://www.demoblaze.com/

@@ -1,0 +1,14 @@
+modules:
+  blazemeter:
+    token: 
+reporting:
+  - module: blazemeter
+  test: Tauros Demo
+execution:
+  concurrency: 200
+  ramp-up: 5m
+  hold-for: 5m
+
+  scenerio:
+    think-time:
+    requests: 
